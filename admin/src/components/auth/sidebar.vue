@@ -6,7 +6,7 @@
                 <span>Dashboard</span>
             </div>
         </router-link>
-        <router-link  :to="{name: 'app.dashboard'}" class="w-full text-black no-underline transition-colors rounded dark:text-white/50 hover:bg-white/65 hover:text-white/20" >
+        <router-link  :to="{name: 'app.products'}" class="w-full text-black no-underline transition-colors rounded dark:text-white/50 hover:bg-white/65 hover:text-white/20" >
             <div class="flex w-full gap-2 py-3 ml-5 justify-left">
                 <span class="w-6 h-6"><ListBulletIcon/></span>
                 <span>Products</span>

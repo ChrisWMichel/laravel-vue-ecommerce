@@ -2,20 +2,18 @@
     <div class="main-container ">
       <div class="app-container">
         <!-- Sidebar -->
-        <div class=" mt-[-30px]" style="">
-            <sidebar />
-        </div>
+        <transition name="slide">
+          <div v-if="showSidebar">
+              <sidebar />
+          </div>
+        </transition>
       </div>
       <div class="content-area">
         <header  class="h-12 shadow bg-white/65 dark:bg-gray-800">
-          <navbar />
+          <navbar @toggleSidebar="toggleSidebar" />
         </header>
-        <main>
-          <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="py-4">
-              <router-view></router-view>
-            </div>
-          </div>
+        <main class="pl-10">
+          <router-view></router-view>
         </main>
       </div>
     </div>
@@ -24,10 +22,48 @@
 <script setup>
 import sidebar from './sidebar.vue';
 import navbar from './navbar.vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const showSidebar = ref(true);
+
+const toggleSidebar = () => {
+  showSidebar.value = !showSidebar.value;
+};
+
+onMounted(() => {
+  if(window.outerWidth <= 768) {
+    showSidebar.value = false;
+  }
+
+  window.addEventListener('resize', () => {
+    if(window.outerWidth <= 768) {
+      showSidebar.value = false;
+    } else {
+      showSidebar.value = true;
+    }
+  });
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', () => {
+    if(window.outerWidth <= 768) {
+      showSidebar.value = false;
+    } else {
+      showSidebar.value = true;
+    }
+  });
+});
 
 </script>
 
 <style scoped>
+
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-enter-from, .slide-leave-to {
+  transform: translateX(-100%);
+}
 .main-container {
    display: flex;
     height: 100vh;

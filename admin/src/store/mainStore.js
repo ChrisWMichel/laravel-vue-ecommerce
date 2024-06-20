@@ -1,9 +1,13 @@
 import { defineStore } from "pinia";
+import { reactive } from "vue";
 
 export const useMainStore = defineStore("main", () => {
-    const test = "Hello World";
+    const user = reactive({
+        token: null,
+        data: {},
+    });
 
     return {
-        test,
+        user,
     };
 });

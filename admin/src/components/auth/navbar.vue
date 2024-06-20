@@ -4,16 +4,16 @@
             <div class="flex items-center justify-between h-16 pb-3">
                 <!-- Left Side (Logo and Links) -->
                 <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <button>
+                    <div class="flex-shrink-0 -ml-5">
+                        <button @click="$emit('toggleSidebar')" class="bg-transparent border-none">
                             <Bars3Icon class="w-4 h-4 text-white" />
                         </button>
                     </div>
                     <div class="hidden ml-10 space-x-4 md:flex">
-                        <a href="#" class="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md">Dashboard</a>
+                        <!-- <a href="#" class="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md">Dashboard</a>
                         <a href="#" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Team</a>
                         <a href="#" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Projects</a>
-                        <a href="#" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Calendar</a>
+                        <a href="#" class="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">Calendar</a> -->
                     </div>
                 </div>
                 <!-- Right Side (Dropdown Menu) -->
@@ -28,4 +28,10 @@
 <script setup>
 import { Bars3Icon } from '@heroicons/vue/24/solid';
 import dropdownMenu from './dropdownMenu.vue';
+
+
+
+// @click="showSidebar = !showSidebar"
+
+defineEmits(['toggleSidebar']);
 </script>

@@ -6,7 +6,7 @@ import RequestPassword from "../views/auth/RequestPassword.vue";
 import ResetPassword from "../views/auth/ResetPassword.vue";
 import AuthLayout from "../components/auth/AuthLayout.vue";
 import products from "../components/auth/products.vue";
-import { useMainStore } from "../store/mainStore";
+import { useAuthStore } from "../stores/authStore";
 import notFound from "../views/notFound.vue";
 
 const routes = [
@@ -60,9 +60,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !useMainStore().user.token) {
+    if (to.meta.requiresAuth && !useAuthStore().user.token) {
         next({ name: "login" });
-    } else if (to.meta.requiresGuest && useMainStore().user.token) {
+    } else if (to.meta.requiresGuest && useAuthStore().user.token) {
         next({ name: "app.dashboard" });
     } else {
         next();

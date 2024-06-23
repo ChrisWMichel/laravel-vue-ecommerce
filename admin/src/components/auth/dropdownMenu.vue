@@ -71,16 +71,23 @@
   import { ChevronDownIcon, UserIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/vue/24/solid'
   import { useRouter } from 'vue-router';
   import { useAuthStore } from '../../stores/authStore';
+  import { computed, ref } from 'vue';
 
   const authStore = useAuthStore();
   const router = useRouter();
-  const firstname = authStore.user.data.firstname || 'Hello';
+  const firstname = ref('');
+
+  authStore.getUser().then(userData => {
+    firstname.value = userData.firstname;
+  }).catch(error => {
+      console.error("Failed to fetch user data:", error);
+  });
 
   function logout() {
     authStore.logout()
     router.push({ name: 'login' })
   }
-  console.log('authStore', authStore)
+ 
   </script>
 
   <style scoped>

@@ -1,5 +1,6 @@
 <template>
-    <div class="main-container ">
+    <div v-if="checkUser" class="main-container ">
+      
       <div class="app-container">
         <!-- Sidebar -->
         <transition name="slide">
@@ -10,19 +11,36 @@
       </div>
       <div class="content-area">
         <header  class="h-12 shadow bg-white/65 dark:bg-gray-800">
-          <navbar @toggleSidebar="toggleSidebar" />
+          <navbar @toggleSidebar="toggleSidebar"/>
         </header>
         <main class="pl-10">
           <router-view></router-view>
         </main>
       </div>
     </div>
+    <div v-else class="flex items-center justify-center min-h-full ">
+      <spinner />
+    </div>
 </template>
 
 <script setup>
 import sidebar from './sidebar.vue';
 import navbar from './navbar.vue';
-import { ref, onMounted, onUnmounted } from 'vue';
+import spinner from '../core/spinner.vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { useAuthStore } from '../../stores/authStore';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+const checkUser = async () => {
+  currentUser.value = await authStore.getUser();
+  if(!currentUser.value) {
+    router.push({ name: 'auth.login' });
+  }
+  return true;
+};
 
 const showSidebar = ref(true);
 

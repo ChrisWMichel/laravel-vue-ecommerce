@@ -8,6 +8,18 @@ export const useAuthStore = defineStore("auth", () => {
         data: {},
     });
 
+    function getUser() {
+        return axiosClient
+            .get("/user")
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+                throw error;
+            });
+    }
+
     function login(data) {
         return axiosClient
             .post("/login", data)
@@ -19,7 +31,8 @@ export const useAuthStore = defineStore("auth", () => {
                 //router.push("/");
             })
             .catch((error) => {
-                console.log(error);
+                //console.log(error);
+                return Promise.reject(error);
             });
     }
 
@@ -42,5 +55,6 @@ export const useAuthStore = defineStore("auth", () => {
         login,
         logout,
         setToken,
+        getUser,
     };
 });

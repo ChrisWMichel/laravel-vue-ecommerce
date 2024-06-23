@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -34,7 +35,7 @@ class AuthController extends Controller
         $token = $user->createToken('admin')->plainTextToken;
     
         return response([
-            'user' => $user,
+            'user' => new UserResource($user),
             'token' => $token
         ]);
     }
@@ -51,6 +52,14 @@ class AuthController extends Controller
         $user->currentAccessToken()->delete();
 
         return response('', 204);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function getUser(Request $request)
+    {
+        return new UserResource($request->user());
     }
 
     

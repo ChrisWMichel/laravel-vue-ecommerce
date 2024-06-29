@@ -5,7 +5,7 @@ import App from "../App.vue";
 import RequestPassword from "../views/auth/RequestPassword.vue";
 import ResetPassword from "../views/auth/ResetPassword.vue";
 import AuthLayout from "../components/auth/AuthLayout.vue";
-import products from "../components/auth/products.vue";
+import products from "../views/Products/products.vue";
 import { useAuthStore } from "../stores/authStore";
 import notFound from "../views/notFound.vue";
 

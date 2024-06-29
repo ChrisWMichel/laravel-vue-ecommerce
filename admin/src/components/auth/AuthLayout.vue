@@ -13,12 +13,12 @@
         <header  class="h-12 shadow bg-white/65 dark:bg-gray-800">
           <navbar @toggleSidebar="toggleSidebar"/>
         </header>
-        <main class="pl-10">
+        <main class="pl-10 pr-10">
           <router-view></router-view>
         </main>
       </div>
     </div>
-    <div v-else class="flex items-center justify-center min-h-full ">
+    <div v-else class="flex items-center justify-center min-h-full mr-3 ">
       <spinner />
     </div>
 </template>
@@ -39,7 +39,7 @@ const checkUser = async () => {
   if(!currentUser.value) {
     router.push({ name: 'auth.login' });
   }
-  return true;
+  //return true;
 };
 
 const showSidebar = ref(true);

@@ -31,8 +31,50 @@ export const useProductStore = defineStore("product", () => {
         }
     };
 
+    const updateProduct = async (id, product) => {
+        try {
+            if (product.image instanceof File) {
+                const formData = new FormData();
+                formData.append("name", product.title);
+                formData.append("price", product.price);
+                formData.append("description", product.description);
+                formData.append("image", product.image);
+                formData.append("_method", "PUT");
+                // const response = await axiosClient.put(`/products/${id}`, formData, {
+                //     headers: {
+                //         "Content-Type": "multipart/form-data",
+                //     },
+                // });
+                // return response.data
+            } else {
+                product._method = "PUT";
+            }
+            return axiosClient.post(`/products/${id}`, product);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const addProduct = async (product) => {
+        try {
+            if (product.image instanceof File) {
+                console.log("product.image", product.image);
+                const formData = new FormData();
+                formData.append("title", product.title);
+                formData.append("price", product.price);
+                formData.append("description", product.description);
+                formData.append("image", product.image);
+                return axiosClient.post("/products", formData);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return {
         products,
         getProducts,
+        updateProduct,
+        addProduct,
     };
 });

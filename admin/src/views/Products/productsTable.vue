@@ -49,12 +49,13 @@
             <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{{ product.title }}</td>
             <td class="w-auto p-2 border-b">
               <img :src="product.image" class="object-cover h-10 rounded-md" alt="product image">
+              <!-- <img :src="getImageUrl(product.image)" class="object-cover h-10 rounded-md" alt="product image"> -->
             </td>
             <td class="p-2 border-b">{{ product.price }}</td>
             <td class="p-2 border-b">{{ product.updated_at }}</td>
             <td>
               <button class="px-2 py-1 text-sm text-white bg-indigo-600 rounded-md">Edit</button>
-              <button class="px-2 py-1 text-sm text-white bg-red-600 rounded-md">Delete</button>
+              <button class="px-2 py-1 ml-2 text-sm text-white bg-red-600 rounded-md">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -122,8 +123,6 @@
       products.value = productsStore.products.data.data;
       links.value = productsStore.products.data; 
       if (links.value && links.value.meta) {
-        console.log('links.meta', links.value.meta);
-        console.log('links.meta.from', links.value.meta.from);
       } else {
         console.log('links.value.meta is not defined');
       }
@@ -160,6 +159,14 @@
     }
 
     getProducts();
+  };
+
+  const getImageUrl = (imagePath) => {
+    if (/^https?:\/\//.test(imagePath)) {
+        return imagePath;
+      } else {
+        return `/storage/${imagePath}`;
+      }
   };
 
    const isNotEmpty = computed(() => products.value.length > 0);  
